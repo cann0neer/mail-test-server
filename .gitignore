@@ -1,0 +1,9 @@
+# Файлы проектов
+*.sublime-*
+.idea
+
+# Серверные директории
+node_modules
+npm-debug.log
+
+public/upl
