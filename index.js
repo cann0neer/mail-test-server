@@ -1,5 +1,29 @@
 'use strict';
 
+/**
+ * A description of the implementation:
+ *
+ * 1) Type of RabbitMQ's exchange - 'direct'.
+ * 'Durable' and 'persistent' flags are also used to avoid losing messages.
+ *
+ * 2) RabbitMQ has to guarantee sending messages without duplicates.
+ * However, in some cases it's not true.
+ * A quote from docs: "In the event of network failure (or a node crashing),
+ * messages can be duplicated, and consumers must be prepared to handle them.
+ * If possible, the simplest way to handle this is to ensure that your consumers handle messages in an idempotent way
+ * rather than explicitly deal with deduplication."
+ *
+ * 3) Mongodb collection is used for deduplication.
+ * The collection 'logs' stores unique ids of all sent messages.
+ *
+ * 4) The test assignment suggests to have installation/execution simple.
+ * The service uses free remote DB 'Mongodb Atlas'.
+ * In this case, any installation are not required.
+ *
+ * 5) It's expensive to make a query to DB every time when a new message is received.
+ * The service uses Bloom filter to minimize DB usage.
+ */
+
 const mailer      = require('./libs/mailer');
 const Log         = require('./models/Log');
 const amqp        = require('amqplib/callback_api');
