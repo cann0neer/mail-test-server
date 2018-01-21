@@ -74,7 +74,7 @@ mongoose.connect(DBUri).then(() =>  {
                 msgObj = {};
             }
 
-            console.log(` [x] Received "${msgObj.val}" `, msgObj.uid);
+            console.log(` [x] Received "${msgObj.val}"`);
 
             // if the message has a wrong format - do nothing
 
